@@ -328,7 +328,7 @@ TEST(TWCoinTypeConfiguration, TWCoinTypeConfigurationGetTransactionURL) {
     assertStringsEqual(terra, "https://terra.stake.id/?#/tx/123");
 
     auto mona = WRAPS(TWCoinTypeConfigurationGetTransactionURL(TWCoinTypeMonacoin, txId));
-    assertStringsEqual(terra, "https://blockbook.electrum-mona.org/tx/123");
+    assertStringsEqual(mona, "https://blockbook.electrum-mona.org/tx/123");
 }
 
 TEST(TWCoinTypeConfiguration, TWCoinTypeConfigurationGetID) {
