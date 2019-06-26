@@ -42,7 +42,7 @@ TEST(Monacoin, BuildForAddressM) {
 TEST(Monacoin, BuildForAddressP) {
     auto script = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("PHjTKtgYLTJ9D2Bzw2f6xBB41KBm2HeGfg").get(), TWCoinTypeMonacoin));
     auto scriptData = WRAPD(TWBitcoinScriptData(script.get()));
-    assertHexEqual(scriptData, "a9146b85b3dac9340f36b9d32bbacf2ffcb0851ef17987");
+    assertHexEqual(scriptData, "a9146449f568c9cd2378138f2636e1567112a184a9e887");
 }
 
 TEST(Monacoin, ExtendedKeys) {
@@ -52,15 +52,15 @@ TEST(Monacoin, ExtendedKeys) {
     ));
 
     // .bip44
-    auto xprv = WRAPS(TWHDWalletGetExtendedPrivateKey(wallet.get(), TWPurposeBIP44, TWCoinTypeMonacoin, TWHDVersionLTPV));
-    auto xpub = WRAPS(TWHDWalletGetExtendedPublicKey(wallet.get(), TWPurposeBIP44, TWCoinTypeMonacoin, TWHDVersionLTUB));
+    auto xprv = WRAPS(TWHDWalletGetExtendedPrivateKey(wallet.get(), TWPurposeBIP44, TWCoinTypeMonacoin, TWHDVersionXPRV));
+    auto xpub = WRAPS(TWHDWalletGetExtendedPublicKey(wallet.get(), TWPurposeBIP44, TWCoinTypeMonacoin, TWHDVersionXPUB));
 
     assertStringsEqual(xprv, "xprv9yZ9qiUHr5eCpSp87jUR4KBHA1rhLx8fqSMGHK9CTfUgwt1QwYdwh9Csf7BsUWT53CDWdcYVFaqYF79QDYJ9NsoM6RE5nTz9VvLBCntdbTQ");
     assertStringsEqual(xpub, "xpub6CYWFE1BgTCW2vtbDm1RRT81i3hBkQrXCfGs5hYp211fpgLZV5xCEwXMWPAL3LgaBA9koXpLZSUo7rTyJ8q1JwqKhvzVpdzBKRGyyGb31KF");
 
     // .bip49
-    auto yprv = WRAPS(TWHDWalletGetExtendedPrivateKey(wallet.get(), TWPurposeBIP49, TWCoinTypeMonacoin, TWHDVersionMTPV));
-    auto ypub = WRAPS(TWHDWalletGetExtendedPublicKey(wallet.get(), TWPurposeBIP49, TWCoinTypeMonacoin, TWHDVersionMTUB));
+    auto yprv = WRAPS(TWHDWalletGetExtendedPrivateKey(wallet.get(), TWPurposeBIP49, TWCoinTypeMonacoin, TWHDVersionYPRV));
+    auto ypub = WRAPS(TWHDWalletGetExtendedPublicKey(wallet.get(), TWPurposeBIP49, TWCoinTypeMonacoin, TWHDVersionYPUB));
 
     assertStringsEqual(yprv, "yprvAKLGJBFEsPizw5w8vvS1cVjuYd9am9nL8E1sd5NaaiSkDZ7sLfA7W3cRiGywGEBy51nFmn3pbmHvUyn1sqD2ZXx3xgXvEd22LnBAPaTJtz4");
     assertStringsEqual(ypub, "ypub6YKchgn8hmHJ9a1c2wy1ydge6ez5AcWBVSwURTnC93yj6MT1tCUN3qvuZZPsA1CwZVh5qEGhMWhDZEK43jQqWtHBzME91ws9KD6WU9n8Nau");
