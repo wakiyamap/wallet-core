@@ -96,6 +96,6 @@ TEST(MonacoinTransaction, LockScripts) {
     // https://blockbook.electrum-mona.org/tx/6d7ebe444cc12c14625fa526ed9d81058b04d2f0c3b5dad2fb0032eeec3ba511
     
     auto script3 = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("mona1qytnqzjknvv03jwfgrsmzt0ycmwqgl0asju3qmd").get(), TWCoinTypeMonacoin));
-    auto scriptData2 = WRAPD(TWBitcoinScriptData(script3.get()));
-    assertHexEqual(scriptData2, "001422e6014ad3631f1939281c3625bc98db808fbfb0");
+    auto scriptData3 = WRAPD(TWBitcoinScriptData(script3.get()));
+    assertHexEqual(scriptData3, "001422e6014ad3631f1939281c3625bc98db808fbfb0");
 }
