@@ -92,7 +92,7 @@ TEST(MonacoinTransaction, LockScripts) {
     auto scriptData2 = WRAPD(TWBitcoinScriptData(script2.get()));
     assertHexEqual(scriptData2, "a914049880fc73bb6a5e0140404713cabe2592fb2c5587");
 
-    // P2WPKH
+    // BECH32
     // https://blockbook.electrum-mona.org/tx/6d7ebe444cc12c14625fa526ed9d81058b04d2f0c3b5dad2fb0032eeec3ba511
     
     auto script3 = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("mona1qytnqzjknvv03jwfgrsmzt0ycmwqgl0asju3qmd").get(), TWCoinTypeMonacoin));

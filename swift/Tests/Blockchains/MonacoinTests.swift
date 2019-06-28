@@ -43,14 +43,14 @@ class MonacoinTests: XCTestCase {
         let xprv = wallet.getExtendedPrivateKey(purpose: .bip44, coin: .monacoin, version: .xprv)
         let xpub = wallet.getExtendedPubKey(purpose: .bip44, coin: .monacoin, version: .xpub)
 
-        XCTAssertEqual(lptv, "xprv9yZ9qiUHr5eCpSp87jUR4KBHA1rhLx8fqSMGHK9CTfUgwt1QwYdwh9Csf7BsUWT53CDWdcYVFaqYF79QDYJ9NsoM6RE5nTz9VvLBCntdbTQ")
-        XCTAssertEqual(ltub, "xpub6CYWFE1BgTCW2vtbDm1RRT81i3hBkQrXCfGs5hYp211fpgLZV5xCEwXMWPAL3LgaBA9koXpLZSUo7rTyJ8q1JwqKhvzVpdzBKRGyyGb31KF")
+        XCTAssertEqual(xprv, "xprv9yZ9qiUHr5eCpSp87jUR4KBHA1rhLx8fqSMGHK9CTfUgwt1QwYdwh9Csf7BsUWT53CDWdcYVFaqYF79QDYJ9NsoM6RE5nTz9VvLBCntdbTQ")
+        XCTAssertEqual(xpub, "xpub6CYWFE1BgTCW2vtbDm1RRT81i3hBkQrXCfGs5hYp211fpgLZV5xCEwXMWPAL3LgaBA9koXpLZSUo7rTyJ8q1JwqKhvzVpdzBKRGyyGb31KF")
 
         // .bip49
         let yprv = wallet.getExtendedPrivateKey(purpose: .bip49, coin: .monacoin, version: .yprv)
         let ypub = wallet.getExtendedPubKey(purpose: .bip49, coin: .monacoin, version: .ypub)
-        XCTAssertEqual(mtpv, "yprvAKLGJBFEsPizw5w8vvS1cVjuYd9am9nL8E1sd5NaaiSkDZ7sLfA7W3cRiGywGEBy51nFmn3pbmHvUyn1sqD2ZXx3xgXvEd22LnBAPaTJtz4")
-        XCTAssertEqual(mtub, "ypub6YKchgn8hmHJ9a1c2wy1ydge6ez5AcWBVSwURTnC93yj6MT1tCUN3qvuZZPsA1CwZVh5qEGhMWhDZEK43jQqWtHBzME91ws9KD6WU9n8Nau")
+        XCTAssertEqual(yprv, "yprvAKLGJBFEsPizw5w8vvS1cVjuYd9am9nL8E1sd5NaaiSkDZ7sLfA7W3cRiGywGEBy51nFmn3pbmHvUyn1sqD2ZXx3xgXvEd22LnBAPaTJtz4")
+        XCTAssertEqual(ypub, "ypub6YKchgn8hmHJ9a1c2wy1ydge6ez5AcWBVSwURTnC93yj6MT1tCUN3qvuZZPsA1CwZVh5qEGhMWhDZEK43jQqWtHBzME91ws9KD6WU9n8Nau")
 
         // .bip84
         let zprv = wallet.getExtendedPrivateKey(purpose: .bip84, coin: .monacoin, version: .zprv)
@@ -69,7 +69,7 @@ class MonacoinTests: XCTestCase {
         XCTAssertEqual(BitcoinAddress(publicKey: xpubAddr9, prefix: CoinType.monacoin.p2pkhPrefix)!.description, "MAtduu1Fvtv1Frx6vbg5tZDZwirCA3y8qq")
     }
 
-    func testDeriveFromMtub() {
+    func testDeriveFromYpub() {
         let ypub = "ypub6YKchgn8hmHJ9a1c2wy1ydge6ez5AcWBVSwURTnC93yj6MT1tCUN3qvuZZPsA1CwZVh5qEGhMWhDZEK43jQqWtHBzME91ws9KD6WU9n8Nau"
 
         let monacoin = CoinType.monacoin
