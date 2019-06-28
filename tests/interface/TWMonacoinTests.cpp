@@ -46,9 +46,9 @@ TEST(Monacoin, BuildForP2SHAddress) {
 }
 
 TEST(Monalcoin, BuildForBECH32Address) {
-    auto script = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("mona1zw508d6qejxtdg4y5r3zarvaryvhm3vz7").get(), TWCoinTypeMonacoin));
+    auto script = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("mona1q4kpn6psthgd5ur894auhjj2g02wlgmp8ke08ne").get(), TWCoinTypeMonacoin));
     auto scriptData = WRAPD(TWBitcoinScriptData(script.get()));
-    assertHexEqual(scriptData, "5210751e76e8199196d454941c45d1b3a323");
+    assertHexEqual(scriptData, "0014ad833d060bba1b4e0ce5af797949487a9df46c27");
 }
 
 TEST(Monacoin, ExtendedKeys) {
