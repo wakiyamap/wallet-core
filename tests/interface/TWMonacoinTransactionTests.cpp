@@ -21,7 +21,7 @@
 using namespace TW;
 using namespace Bitcoin;
 
-TEST(RavencoinTransaction, SignTransaction) {
+TEST(MonacoinTransaction, SignTransaction) {
     /*
         https://iancoleman.io/bip39/
         Mnemonic - raccoon slide close budget swarm benefit remind hard october coffee smoke whip
@@ -77,7 +77,7 @@ TEST(RavencoinTransaction, SignTransaction) {
     ); 
 }
 
-TEST(RavencoinTransaction, LockScripts) {
+TEST(MonacoinTransaction, LockScripts) {
     // P2PKH    
     // https://blockbook.electrum-mona.org/tx/79ebdce15e4ac933328e62dbe92302fc8b4833786e46df8a4f18295cb824fb67
     
