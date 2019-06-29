@@ -47,7 +47,7 @@ TEST(MonacoinTransaction, SignTransaction) {
     auto hash0 = DATA("8632b49327109570006c80a155cb4186ecf98fddfed5d529a500c71222647b16");
     auto utxo0 = input.add_utxo();
     utxo0->mutable_out_point()->set_hash(TWDataBytes(hash0.get()), TWDataSize(hash0.get()));
-    utxo0->mutable_out_point()->set_index(1);
+    utxo0->mutable_out_point()->set_index(0);
     utxo0->mutable_out_point()->set_sequence(UINT32_MAX);
     utxo0->set_amount(utxo_amount);
     auto script0 = parse_hex("76a914076df984229a2731cbf465ec8fbd35b8da94380f88ac");
@@ -68,27 +68,27 @@ TEST(MonacoinTransaction, SignTransaction) {
     ASSERT_EQ(
         hex(serialized),
         "02000000018632b49327109570006c80a155cb4186ecf98fddfed5d529a500c71222647b16000000006a47304402200511e81368a1c2f78815b4b6c531f88d238db7581daea67b0c55db145a7f2067022017647df16b3ea0434182bbcaa06c7bc397c933351bdcf25ae4a68dc4c58ade09012102fc08693599fda741558613cd44a50fc65953b1be797637f8790a495b85554f3efeffffff0280f0fa02000000001976a914076df984229a2731cbf465ec8fbd35b8da94380f88ac801af4020000000017a914364f93064cc3bd63811b540fc7a93562acef49b987fcf91900"
-    ); 
+    );
 }
 
 TEST(MonacoinTransaction, LockScripts) {
-    // P2PKH    
+    // P2PKH
     // https://blockbook.electrum-mona.org/tx/79ebdce15e4ac933328e62dbe92302fc8b4833786e46df8a4f18295cb824fb67
-    
+
     auto script = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("M8aShwteMWyAbUw4SGS4EHLqfo1EfnKHcM").get(), TWCoinTypeMonacoin));
     auto scriptData = WRAPD(TWBitcoinScriptData(script.get()));
     assertHexEqual(scriptData, "76a914076df984229a2731cbf465ec8fbd35b8da94380f88ac");
 
     // P2SH
     // https://blockbook.electrum-mona.org/tx/726ae7d5179bfd8c7d51a5b956c3d6a262fe5190c36ed7bcb3799dc5759d5830
-    
+
     auto script2 = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("P91UYtoBS4XAD39fEzaeMaq7YmMa42FFNd").get(), TWCoinTypeMonacoin));
     auto scriptData2 = WRAPD(TWBitcoinScriptData(script2.get()));
     assertHexEqual(scriptData2, "a914049880fc73bb6a5e0140404713cabe2592fb2c5587");
 
     // BECH32
     // https://blockbook.electrum-mona.org/tx/6d7ebe444cc12c14625fa526ed9d81058b04d2f0c3b5dad2fb0032eeec3ba511
-    
+
     auto script3 = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("mona1qytnqzjknvv03jwfgrsmzt0ycmwqgl0asju3qmd").get(), TWCoinTypeMonacoin));
     auto scriptData3 = WRAPD(TWBitcoinScriptData(script3.get()));
     assertHexEqual(scriptData3, "001422e6014ad3631f1939281c3625bc98db808fbfb0");
