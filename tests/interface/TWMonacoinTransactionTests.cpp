@@ -12,7 +12,7 @@
 #include "Bitcoin/TransactionSigner.h"
 #include "HexCoding.h"
 #include "PublicKey.h"
-
+#include <iostream>
 #include <TrustWalletCore/TWBitcoinScript.h>
 #include <TrustWalletCore/TWHDWallet.h>
 
