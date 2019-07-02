@@ -29,7 +29,7 @@ TEST(MonacoinTransaction, SignTransaction) {
         m/44'/22'/0'/0/0 Private key in Base58 encoding - T8XV834egE6ZsgsQFPnBcYbNdFKNiGKiNj21mRjGx2scGNQh3ypZ
         m/44'/22'/0'/0/0 Private key in bytes - a356a193a24c73c657e0c7bbf4e876964984a2dcba986ea1ea1fca7b025218f3
         utxo - https://blockbook.electrum-mona.org/tx/ed0a42ced5e5fc78a0568b4bdeb512dcfc47c1aace429cc060b6c3cc3d511a44
-        tx - https://blockbook.electrum-mona.org/tx/0d8578bdebe7d56ac83d75aaffa2184d5f59cfd9ed0251919bb2b98e1d71bd30
+        tx - https://blockbook.electrum-mona.org/tx/0c2916dee64b1e60414199debfa22300c7ecd1f94f3a5602d2e5b9e120b63573
     */
 
     const int64_t utxo_amount = 100000000;
