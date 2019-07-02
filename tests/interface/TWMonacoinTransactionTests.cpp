@@ -12,7 +12,7 @@
 #include "Bitcoin/TransactionSigner.h"
 #include "HexCoding.h"
 #include "PublicKey.h"
-#include <iostream>
+
 #include <TrustWalletCore/TWBitcoinScript.h>
 #include <TrustWalletCore/TWHDWallet.h>
 
@@ -28,46 +28,51 @@ TEST(MonacoinTransaction, SignTransaction) {
         m/44'/22'/0'/0/0 Address - MX7ZpcMMN4GVDeUvCjAYwfRyMgfBzYNr3E
         m/44'/22'/0'/0/0 Private key in Base58 encoding - T8XV834egE6ZsgsQFPnBcYbNdFKNiGKiNj21mRjGx2scGNQh3ypZ
         m/44'/22'/0'/0/0 Private key in bytes - a356a193a24c73c657e0c7bbf4e876964984a2dcba986ea1ea1fca7b025218f3
-        utxo - https://blockbook.electrum-mona.org/tx/167b642212c700a529d5d5fedd8ff9ec8641cb55a1806c007095102793b43286
-        tx - https://blockbook.electrum-mona.org/tx/cc01c378c9ce1c8218b1c311796eabc2c89b59fe535cd50d645ddb99eeba5593
+        utxo - https://blockbook.electrum-mona.org/tx/ed0a42ced5e5fc78a0568b4bdeb512dcfc47c1aace429cc060b6c3cc3d511a44
+        tx - https://blockbook.electrum-mona.org/tx/0d8578bdebe7d56ac83d75aaffa2184d5f59cfd9ed0251919bb2b98e1d71bd30
     */
 
     const int64_t utxo_amount = 100000000;
     const int64_t amount = 50000000;
-    const int64_t feeRate = 1;
+    const int64_t fee = 20000;
 
     auto input = Bitcoin::Proto::SigningInput();
     input.set_hash_type(TWSignatureHashTypeAll);
     input.set_amount(amount);
-    input.set_byte_fee(feeRate);
+    input.set_byte_fee(1);
     input.set_to_address("M8aShwteMWyAbUw4SGS4EHLqfo1EfnKHcM");
-    input.set_change_address("PDYLyFayFWSTjZZnxRKGDmmrrEpkpN1Nfq");
+    input.set_change_address("MX7ZpcMMN4GVDeUvCjAYwfRyMgfBzYNr3E");
     input.set_coin_type(TWCoinTypeMonacoin);
 
-    auto hash0 = DATA("8632b49327109570006c80a155cb4186ecf98fddfed5d529a500c71222647b16");
+    auto hash0 = DATA("febc3448358c14e4841a582d0493c281857e5541bca3b16f9f5ad05e92d55221");
     auto utxo0 = input.add_utxo();
     utxo0->mutable_out_point()->set_hash(TWDataBytes(hash0.get()), TWDataSize(hash0.get()));
     utxo0->mutable_out_point()->set_index(0);
     utxo0->mutable_out_point()->set_sequence(UINT32_MAX);
     utxo0->set_amount(utxo_amount);
-    auto script0 = parse_hex("76a914076df984229a2731cbf465ec8fbd35b8da94380f88ac");
+    auto script0 = parse_hex("76a914fea39370769d4fed2d8ab98dd5daa482cc56113b88ac");
     utxo0->set_script(script0.data(), script0.size());
 
     auto utxoKey0 = DATA("a356a193a24c73c657e0c7bbf4e876964984a2dcba986ea1ea1fca7b025218f3");
     input.add_private_key(TWDataBytes(utxoKey0.get()), TWDataSize(utxoKey0.get()));
 
-    auto signer = TW::Bitcoin::TransactionSigner<TW::Bitcoin::Transaction>(std::move(input));
+    auto plan = Bitcoin::TransactionBuilder::plan(input);
+    plan.amount = amount;
+    plan.fee = fee;
+    plan.change = utxo_amount - amount - fee;
+
+    auto signer = TW::Bitcoin::TransactionSigner<TW::Bitcoin::Transaction>(std::move(input), plan);
     auto result = signer.sign();
     auto signedTx = result.payload();
 
-    //ASSERT_TRUE(result);
-    //ASSERT_EQ(fee, signer.plan.fee);
+    ASSERT_TRUE(result);
+    ASSERT_EQ(fee, signer.plan.fee);
 
     Data serialized;
     signedTx.encode(false, serialized);
     ASSERT_EQ(
         hex(serialized),
-        "02000000018632b49327109570006c80a155cb4186ecf98fddfed5d529a500c71222647b16000000006a47304402200511e81368a1c2f78815b4b6c531f88d238db7581daea67b0c55db145a7f2067022017647df16b3ea0434182bbcaa06c7bc397c933351bdcf25ae4a68dc4c58ade09012102fc08693599fda741558613cd44a50fc65953b1be797637f8790a495b85554f3efeffffff0280f0fa02000000001976a914076df984229a2731cbf465ec8fbd35b8da94380f88ac801af4020000000017a914364f93064cc3bd63811b540fc7a93562acef49b987fcf91900"
+        "0200000001febc3448358c14e4841a582d0493c281857e5541bca3b16f9f5ad05e92d55221000000006b483045022100fb6d23679d5017ba4ef7cd142179d8881806033bbe0df0278221e044fc8e648a02201626d2b944a77cbcef40f4e7b0874b11dde78e7e28c77726fe889177190b3bbe012102fc08693599fda741558613cd44a50fc65953b1be797637f8790a495b85554f3efeffffff02801af402000000001976a914fea39370769d4fed2d8ab98dd5daa482cc56113b88ac80f0fa02000000001976a914076df984229a2731cbf465ec8fbd35b8da94380f88ac84071a00"
     );
 }
 
