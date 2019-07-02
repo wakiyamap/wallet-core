@@ -44,7 +44,7 @@ TEST(MonacoinTransaction, SignTransaction) {
     input.set_change_address("MX7ZpcMMN4GVDeUvCjAYwfRyMgfBzYNr3E");
     input.set_coin_type(TWCoinTypeMonacoin);
 
-    auto hash0 = DATA("febc3448358c14e4841a582d0493c281857e5541bca3b16f9f5ad05e92d55221");
+    auto hash0 = DATA("441a513dccc3b660c09c42ceaac147fcdc12b5de4b8b56a078fce5d5ce420aed");
     auto utxo0 = input.add_utxo();
     utxo0->mutable_out_point()->set_hash(TWDataBytes(hash0.get()), TWDataSize(hash0.get()));
     utxo0->mutable_out_point()->set_index(0);
@@ -72,7 +72,7 @@ TEST(MonacoinTransaction, SignTransaction) {
     signedTx.encode(false, serialized);
     ASSERT_EQ(
         hex(serialized),
-        "0200000001febc3448358c14e4841a582d0493c281857e5541bca3b16f9f5ad05e92d55221000000006b483045022100fb6d23679d5017ba4ef7cd142179d8881806033bbe0df0278221e044fc8e648a02201626d2b944a77cbcef40f4e7b0874b11dde78e7e28c77726fe889177190b3bbe012102fc08693599fda741558613cd44a50fc65953b1be797637f8790a495b85554f3efeffffff02801af402000000001976a914fea39370769d4fed2d8ab98dd5daa482cc56113b88ac80f0fa02000000001976a914076df984229a2731cbf465ec8fbd35b8da94380f88ac84071a00"
+        "0100000001441a513dccc3b660c09c42ceaac147fcdc12b5de4b8b56a078fce5d5ce420aed000000006a473044022047789dc7483b178199439bbfce0ab0caf532fec51095ba099d0d9b0b2169033402201745a0160d8d327655a8ef0542367396ce86bbb13df6b183d58c922e422cfa10012102fc08693599fda741558613cd44a50fc65953b1be797637f8790a495b85554f3effffffff0280f0fa02000000001976a914076df984229a2731cbf465ec8fbd35b8da94380f88ac60a2fa02000000001976a914fea39370769d4fed2d8ab98dd5daa482cc56113b88ac00000000"
     );
 }
 
